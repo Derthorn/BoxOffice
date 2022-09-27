@@ -1,4 +1,6 @@
 using CoreApi.Controllers;
+using CoreApi.Services;
+using MovieRepository;
 using Movie = CoreApi.Models.Movie;
 
 namespace CoreAPITests
@@ -12,7 +14,7 @@ namespace CoreAPITests
         [OneTimeSetUp]
         public void Setup()
         {
-            _movieController = new MoviesController();
+            _movieController = new MoviesController(new MovieService(new MovieRepo()));
 
         }
 
@@ -46,12 +48,12 @@ namespace CoreAPITests
         public void CheckForIncrement()
         {
             
-            var originalNumber = _movieController.Get().Length;
+            var originalNumber = _movieController.Get().Count;
 
             var movie = new Movie() { Title = "Incremented Movie", Description = "Incremented Movie description", Genre = "Crime|Fantasy" };
             _movieController.Put(movie);
 
-            var newNumber = _movieController.Get().Length;
+            var newNumber = _movieController.Get().Count;
 
             Assert.Greater(newNumber, originalNumber, "The number of movies in the database did not increase.");
         }

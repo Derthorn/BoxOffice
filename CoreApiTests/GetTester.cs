@@ -1,4 +1,6 @@
 using CoreApi.Controllers;
+using CoreApi.Services;
+using MovieRepository;
 
 namespace CoreAPITests
 {
@@ -11,8 +13,7 @@ namespace CoreAPITests
         [OneTimeSetUp]
         public void Setup()
         {
-            _movieController = new MoviesController();
-
+            _movieController = new MoviesController(new MovieService(new MovieRepo()));
         }
 
 
@@ -20,7 +21,7 @@ namespace CoreAPITests
         public void Get()
         {
             var movies = _movieController.Get();
-            Assert.Greater(movies.Length, 999);
+            Assert.Greater(movies.Count, 999);
         }
 
         [Test, Description("Should find a movie with the id '1c72feb1-3e90-45d8-be48-d3c2e148ecd4'"), MaxTime(500)]

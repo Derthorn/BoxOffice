@@ -1,4 +1,6 @@
 using CoreApi.Controllers;
+using CoreApi.Services;
+using MovieRepository;
 
 namespace CoreAPITests
 {
@@ -11,7 +13,7 @@ namespace CoreAPITests
         [OneTimeSetUp]
         public void Setup()
         {
-            _movieController = new MoviesController();
+            _movieController = new MoviesController(new MovieService(new MovieRepo()));
 
         }
 

@@ -20,4 +20,10 @@
       <ProjectReference Include="..\CoreApi\CoreApi.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="MovieRepository">
+        <HintPath>..\Solution Items\MovieRepository.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

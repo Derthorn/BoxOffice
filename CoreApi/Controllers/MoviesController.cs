@@ -10,45 +10,47 @@ namespace CoreApi.Controllers;
 [ApiController]
 public class MoviesController : ControllerBase
 {
-    private static readonly IMovieRepo MovieRepo = new MovieRepo();
+
+    private readonly IMovieService _movieService;
+
+    public MoviesController(IMovieService movieService)
+    {
+        _movieService = movieService;
+    }
     
     [HttpGet]
-    public Movie[] Get()
+    public List<Movie> Get()
     {
-        var movies = JsonSerializer.Deserialize<Movie[]>(MovieRepo.Get());
-        return movies.ToArray();
+        return _movieService.Get().ToList();
     }
     
     [HttpGet("{id}")]
     public Movie Get(Guid id)
     {
-        var movies = JsonSerializer.Deserialize<Movie[]>(MovieRepo.Get()).ToList();
-        return movies.First(movie => movie.Id == id);
+        return _movieService.Get(id);
     }
     
     [HttpPut]
     public Movie Put([FromBody] Movie movie)
     {
-        throw new NotImplementedException();
+        return _movieService.Put(movie);
     }
 
     public Movie Rate(Guid id, int rating)
     {
-        throw new NotImplementedException();
+        return id == Guid.Empty ? null : _movieService.Rate(id, rating);
     }
     
     [HttpGet("[action]/{query}")]
     public Movie Search(string query)
     {
-        var moviesService = new MovieService();
-        return moviesService.Search(query);
+        return string.IsNullOrEmpty(query) ? null : _movieService.Search(query);
     }
 
     [HttpGet("[action]/{query}")]
-    public Movie[] SearchByGenre(string[] query)
+    public List<Movie> SearchByGenre(string[] query)
     {
-        var moviesService = new MovieService();
-        return moviesService.SearchByGenre(query);
+        return _movieService.SearchByGenre(query).ToList();
     }
 
 }
