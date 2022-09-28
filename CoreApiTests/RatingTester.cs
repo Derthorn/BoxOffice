@@ -42,7 +42,7 @@ namespace CoreAPITests
             Assert.DoesNotThrow(() => _movieController.Rate(Guid.Empty, 5), "Is unable to handle empty guids.");            
         }
 
-        [Test, Description("Checks that only ratings between 0 and 5 can be added.")]
+        [Test, Description("Checks that only ratings between 0 and 10 can be added.")]
         public void RatingValueCheck()
         {
             Assert.IsNull(_movieController.Rate(new Guid("4ee04b48-8421-4aae-9000-12356c9e1936"), -1), "Accepts negative values.");
@@ -92,12 +92,12 @@ namespace CoreAPITests
         private string GetRating(object movie)
         {
             var jsonMovie = JsonSerializer.Serialize(movie);
-            var dictionaryMovie = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonMovie);
+            var dictionaryMovie = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonMovie);
             Assert.That(dictionaryMovie.ContainsKey("Rating") && dictionaryMovie.ContainsKey("Ratings"), "Rating and / or Ratings properties are missing from Movie class");
 
             dictionaryMovie.TryGetValue("Rating", out var rating);
 
-            return rating;
+            return rating.ToString();
         }
 
     }

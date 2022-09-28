@@ -2,7 +2,7 @@
 
 BoxOffice is a simple movie API that lets a user look up, add and rate movies... or that is at least what it should do if it was working.
 
-The project got started, a controller was created, but not all of its methods are fully implemented or optimized.
+The project got started, a controller was created, but not all of its methods are fully implemented or optimized. The following is a list of the methods that should exist and what they should accomplice.
 
     * Get - Gets all movies from our repository.
     * Get(Guid id) - Gets a specific movie using its Id, works well but can be slow.
@@ -15,6 +15,8 @@ Our external movie repository is not working very well, it is slow and only impl
 
     * Get - which returns all movies in the repo.
     * Put - which either updates an existing movie or inserts a new one.
+
+You will need to look to optimize your code so that the slow external repository does not hinder the methods in the movie API.
 
 There also seems like something is wrong with the projects Swagger setup and it could use some love.
 
