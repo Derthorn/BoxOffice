@@ -1,8 +1,6 @@
-using System.Text.Json;
 using CoreApi.Models;
 using CoreApi.Services;
 using Microsoft.AspNetCore.Mvc;
-using MovieRepository;
 
 namespace CoreApi.Controllers;
 
@@ -36,6 +34,7 @@ public class MoviesController : ControllerBase
         return _movieService.Put(movie);
     }
 
+    [HttpGet("[action]/{id}/{rating}")]
     public Movie Rate(Guid id, int rating)
     {
         return id == Guid.Empty ? null : _movieService.Rate(id, rating);

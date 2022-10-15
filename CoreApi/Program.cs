@@ -1,4 +1,5 @@
 using CoreApi.Services;
+using MovieRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IMovieRepo, MovieRepo>();
 builder.Services.AddScoped<IMovieService, MovieService>();
+
 
 var app = builder.Build();
 
